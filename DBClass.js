@@ -14,6 +14,7 @@ class DataBase {
   }
 }
 
+function dateToSqlFormat() {
   let timeCreation = new Date();
   timeCreation =
     timeCreation.toISOString().split("T")[0] +
