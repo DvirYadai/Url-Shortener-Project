@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 // Class for DataBase
 class DataBase {
   constructor() {
@@ -11,6 +13,13 @@ class DataBase {
     newUrlObject.originalUrl = url;
     newUrlObject["shorturl-id"] = shortUrlGenerator();
     this.urlsArr.push(newUrlObject);
+    fs.writeFile(
+      "./urls.json",
+      JSON.stringify(this.urlsArr, null, 4),
+      (err) => {
+        if (err) throw new Error(`message: ${err}`);
+      }
+    );
   }
 }
 
