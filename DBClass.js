@@ -34,6 +34,33 @@ class DataBase {
     );
     return newUrlObject;
   }
+
+  GetAllUrls() {
+    return this.urlsObj;
+  }
+
+  GetSpecificUrl(shortenedUrl) {
+    const isExistUrl = this.urlsObj.urlsArr.filter(
+      (obj) => obj["shorturl-id"] === shortenedUrl
+    );
+    if (isExistUrl.length > 0) {
+      return isExistUrl[0];
+    } else throw new Error(`message: There is no such shortened url!`);
+  }
+
+  updateUrlredirectCount(shortenedUrl) {
+    const index = this.urlsObj.urlsArr.findIndex(
+      (obj) => obj["shorturl-id"] === shortenedUrl
+    );
+    this.urlsObj.urlsArr[index].redirectCount++;
+    fs.writeFile(
+      "./urls.json",
+      JSON.stringify(this.urlsObj, null, 4),
+      (err) => {
+        if (err) throw new Error(`message: ${err}`);
+      }
+    );
+  }
 }
 
 const dataBase = new DataBase();
