@@ -54,7 +54,7 @@ class DataBase {
     );
     if (isExistUrl.length > 0) {
       return isExistUrl[0];
-    } else throw new Error(`message: There is no such shortened url!`);
+    } else throw `There is no such shortened url!`;
   }
 
   updateUrlredirectCount(shortenedUrl) {
