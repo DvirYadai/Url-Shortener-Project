@@ -5,13 +5,14 @@
     <title>URL Shortener</title>
     <link rel="icon" type="image/png" href="../public/favicon.ico" />
     <link href="./public/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
 
   <body>
     <h1>URL Shortener Microservice</h1>
     <main>
       <section>
-        <form action="api/shorturl/new" method="POST">
+        <form id="form">
           <fieldset>
             <legend>URL Shortener</legend>
             <label for="url_input">URL:</label>
@@ -19,9 +20,9 @@
               id="url_input"
               type="text"
               name="url"
-              placeholder="https://www.freecodecamp.org/"
+              placeholder="Enter your url"
             />
-            <input type="submit" value="POST URL" />
+            <input id="submit-button" type="submit" value="Short URL" />
           </fieldset>
         </form>
       </section>
@@ -29,5 +30,6 @@
     <footer>
       <p>By <a href="https://www.freecodecamp.org/">freeCodeCamp</a></p>
     </footer>
+    <script src="../public/main.js"></script>
   </body>
 </html>
