@@ -19,7 +19,7 @@ class DataBase {
       throw "Invalid Url!";
     }
     const isUrlRealTrueOrFalse = await isUrlReal(url);
-    if (!isUrlRealVar) {
+    if (!isUrlRealTrueOrFalse) {
       throw "This url does not exist!";
     }
     const isExistUrl = this.urlsObj.urlsArr.filter(
