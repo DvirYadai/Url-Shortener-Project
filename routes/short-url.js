@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const dataBase = require("../DBClass");
+const { dataBase } = require("../DBClass");
 const { isShortenedUrlInFormat, isUrlValid } = require("../url-validation");
 
 router.post("/", async (req, res) => {
@@ -10,7 +10,6 @@ router.post("/", async (req, res) => {
     const urlObj = await dataBase.MakeNewShortenedUrl(url);
     return res.send(urlObj);
   } catch (error) {
-    console.log(error);
     return res.status(400).send(error);
   }
 });
