@@ -15,7 +15,11 @@ async function postNewUrl(url) {
         url: url,
       },
     });
-    console.log(res.data[0]);
+    if (res.data.length) {
+      console.log(res.data[0]);
+      return;
+    }
+    console.log(res.data);
   } catch (error) {
     console.log(error.response.data);
   }
