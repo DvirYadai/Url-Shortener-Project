@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { dataBase } = require("../DBClass");
-const { isShortenedUrlInFormat, isUrlValid } = require("../url-validation");
+const { dataBase } = require("../net-utils/DBClass");
+const {
+  isShortenedUrlInFormat,
+  isUrlValid,
+} = require("../net-utils/url-validation");
 
 router.get("/:shorturlid", (req, res) => {
   const { shorturlid } = req.params;

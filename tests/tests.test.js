@@ -1,7 +1,7 @@
 const request = require("supertest");
 const fs = require("fs");
 const app = require("../app");
-const { initializeUrlsJsonFile } = require("../DBClass");
+const { initializeUrlsJsonFile } = require("../net-utils/DBClass");
 
 afterAll(() => {
   initializeUrlsJsonFile();
