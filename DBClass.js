@@ -1,15 +1,21 @@
 const fs = require("fs");
 
+let path;
+if (process.env.NODE_ENV === "test") {
+  path = "test";
+} else {
+  path = "urls";
+}
+
 // Class for DataBase
 class DataBase {
   constructor() {
-    fs.readFile("./urls.json", (err, data) => {
-      if (err) {
-        throw new Error(`message: ${err}`);
-      } else {
-        this.urlsObj = JSON.parse(data);
-      }
-    });
+    try {
+      const data = fs.readFileSync(`./${path}.json`);
+      this.urlsObj = JSON.parse(data);
+    } catch (error) {
+      throw new Error(`message: ${error}`);
+    }
   }
 
   async MakeNewShortenedUrl(url) {
@@ -26,7 +32,7 @@ class DataBase {
     newUrlObject["shorturl-id"] = shortUrlGenerator();
     this.urlsObj.urlsArr.push(newUrlObject);
     fs.writeFile(
-      "./urls.json",
+      `./${path}.json`,
       JSON.stringify(this.urlsObj, null, 4),
       (err) => {
         if (err) throw new Error(`message: ${err}`);
@@ -54,7 +60,7 @@ class DataBase {
     );
     this.urlsObj.urlsArr[index].redirectCount++;
     fs.writeFile(
-      "./urls.json",
+      `./${path}.json`,
       JSON.stringify(this.urlsObj, null, 4),
       (err) => {
         if (err) throw new Error(`message: ${err}`);
@@ -119,4 +125,25 @@ function shortUrlGenerator() {
   return string;
 }
 
-module.exports = dataBase;
+// the methods below is only for tests!
+function initializeUrlsJsonFile() {
+  dataBase.urlsObj = {
+    urlsArr: [
+      {
+        creationDate: "2021-03-02 17:24:49",
+        redirectCount: 2,
+        originalUrl: "https://www.google.com",
+        "shorturl-id": "fr3qc",
+      },
+    ],
+  };
+  fs.writeFile(
+    `./test.json`,
+    JSON.stringify(dataBase.urlsObj, null, 4),
+    (err) => {
+      if (err) throw new Error(`message: ${err}`);
+    }
+  );
+}
+
+module.exports = { dataBase, initializeUrlsJsonFile };
