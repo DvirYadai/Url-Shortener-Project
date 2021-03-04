@@ -1,6 +1,4 @@
 const fs = require("fs");
-const isUrl = require("is-valid-http-url");
-const fetch = require("node-fetch");
 
 // Class for DataBase
 class DataBase {
@@ -15,13 +13,6 @@ class DataBase {
   }
 
   async MakeNewShortenedUrl(url) {
-    if (!isUrl(url)) {
-      throw "Invalid Url!";
-    }
-    const isUrlRealTrueOrFalse = await isUrlReal(url);
-    if (!isUrlRealTrueOrFalse) {
-      throw "This url does not exist!";
-    }
     const isExistUrl = this.urlsObj.urlsArr.filter(
       (obj) => obj.originalUrl === url
     );
@@ -126,18 +117,6 @@ function shortUrlGenerator() {
     string += charArr[Math.floor(Math.random() * 35)];
   }
   return string;
-}
-
-async function isUrlReal(url) {
-  return await fetch(url)
-    .then((res) => {
-      if (res.status === 200) {
-        return true;
-      }
-    })
-    .catch(() => {
-      return false;
-    });
 }
 
 module.exports = dataBase;

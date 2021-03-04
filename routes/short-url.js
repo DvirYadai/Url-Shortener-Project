@@ -1,25 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const dataBase = require("../DBClass");
+const { isShortenedUrlInFormat, isUrlValid } = require("../url-validation");
 
 router.post("/", async (req, res) => {
   const url = req.body.url;
   try {
+    await isUrlValid(url);
     const urlObj = await dataBase.MakeNewShortenedUrl(url);
     return res.send(urlObj);
   } catch (error) {
+    console.log(error);
     return res.status(400).send(error);
   }
 });
 
 router.get("/:shorturlid", (req, res) => {
   const { shorturlid } = req.params;
-  const { originalUrl } = dataBase.GetSpecificUrl(shorturlid);
   try {
+    isShortenedUrlInFormat(shorturlid);
+    const { originalUrl } = dataBase.GetSpecificUrl(shorturlid);
     dataBase.updateUrlredirectCount(shorturlid);
-    res.redirect(302, originalUrl);
+    return res.redirect(302, originalUrl);
   } catch (error) {
-    res.send(error);
+    return res.status(400).send(error);
   }
 });
 
