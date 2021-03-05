@@ -22,17 +22,23 @@
               name="url"
               placeholder="Enter your url"
             />
-            <input id="url-submit-button" type="submit" value="Short URL" />
-            <br>
-            <br>
-            <label for="shortened_url_input">Shortened URL:</label>
+            <input id="url-submit-button" type="submit" value="Short URL"/>
+            <p onclick="showInput()">⬇ Click here for custom short URL ⬇</p>
+            <input
+              id="shortened_url_input_option"
+              type="text"
+              name="short-url-option"
+              placeholder="Enter your custom shortened url"
+              hidden = "true"
+            />
+            <label for="shortened_url_input">Shortened URL Info:</label>
             <input
               id="shortened_url_input"
               type="text"
               name="url"
               placeholder="Enter your shortened url"
             />
-            <input id="shortened-submit-button" type="submit" value="Get Statistic" />
+            <input id="shortened-submit-button" type="submit" value="Get Info" />
           </fieldset>
         </form>
       </section>
