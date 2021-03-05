@@ -3,8 +3,13 @@ document
   .addEventListener("click", async (e) => {
     e.preventDefault();
     let inputValue = document.getElementById("url_input").value;
-    await postNewUrl(inputValue);
+    let inputCustomShortUrlValue = document.getElementById(
+      "shortened_url_input_option"
+    ).value;
+    await postNewUrl(inputValue, inputCustomShortUrlValue);
     document.getElementById("url_input").value = "";
+    document.getElementById("shortened_url_input_option").value = "";
+    document.getElementById("shortened_url_input_option").hidden = true;
   });
 
 document
@@ -16,13 +21,18 @@ document
     document.getElementById("url_input").value = "";
   });
 
-async function postNewUrl(url) {
+function showInput() {
+  document.getElementById("shortened_url_input_option").hidden = false;
+}
+
+async function postNewUrl(url, inputCustomShortUrlValue) {
   try {
     const res = await axios({
       method: "POST",
       url: `http://localhost:3000/api/shorturl`,
       data: {
         url: url,
+        customShortUrl: inputCustomShortUrlValue,
       },
     });
     if (res.data.length) {
