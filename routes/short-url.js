@@ -8,9 +8,10 @@ const {
 
 router.post("/", async (req, res) => {
   const url = req.body.url;
+  const customShortUrl = req.body.customShortUrl;
   try {
     await isUrlValid(url);
-    const urlObj = await dataBase.MakeNewShortenedUrl(url);
+    const urlObj = await dataBase.MakeNewShortenedUrl(url, customShortUrl);
     return res.send(urlObj);
   } catch (error) {
     return res.status(400).send(error);
