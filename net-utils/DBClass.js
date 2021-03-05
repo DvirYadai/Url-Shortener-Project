@@ -1,4 +1,12 @@
 const fs = require("fs");
+const axios = require("axios").default;
+
+let address;
+if (process.env.NODE_ENV === "test") {
+  address = "test";
+} else {
+  address = "604203ce81087a6a8b96b0e8";
+}
 
 let path;
 if (process.env.NODE_ENV === "test") {
@@ -11,8 +19,28 @@ if (process.env.NODE_ENV === "test") {
 class DataBase {
   constructor() {
     try {
-      const data = fs.readFileSync(`./${path}.json`);
-      this.urlsObj = JSON.parse(data);
+      axios({
+        method: "get",
+        url: `https://api.jsonbin.io/v3/b/${address}/latest`,
+      }).then((res) => {
+        this.urlsObj = res.data.record;
+        console.log(res.data.record);
+        fs.writeFile(
+          `./urls.json`,
+          JSON.stringify(this.urlsObj, null, 4),
+          (err) => {
+            if (err) throw new Error(`message: ${err}`);
+          }
+        );
+      });
+      if (process.env.NODE_ENV === "test") {
+        try {
+          const data = fs.readFileSync(`./test.json`);
+          this.urlsObj = JSON.parse(data);
+        } catch (error) {
+          throw new Error(`message: ${error}`);
+        }
+      }
     } catch (error) {
       throw new Error(`message: ${error}`);
     }
@@ -31,6 +59,11 @@ class DataBase {
     newUrlObject.originalUrl = url;
     newUrlObject["shorturl-id"] = shortUrlGenerator();
     this.urlsObj.urlsArr.push(newUrlObject);
+    try {
+      axios.put(`https://api.jsonbin.io/v3/b/${address}`, this.urlsObj);
+    } catch (error) {
+      throw error;
+    }
     fs.writeFile(
       `./${path}.json`,
       JSON.stringify(this.urlsObj, null, 4),
@@ -59,6 +92,11 @@ class DataBase {
       (obj) => obj["shorturl-id"] === shortenedUrl
     );
     this.urlsObj.urlsArr[index].redirectCount++;
+    try {
+      axios.put(`https://api.jsonbin.io/v3/b/${address}`, this.urlsObj);
+    } catch (error) {
+      throw error;
+    }
     fs.writeFile(
       `./${path}.json`,
       JSON.stringify(this.urlsObj, null, 4),

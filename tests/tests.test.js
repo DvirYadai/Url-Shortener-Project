@@ -85,7 +85,7 @@ describe("GET Routes to http://localhost/api/shorturl/:shorturlid", () => {
   it("Should redirect to original url when entering http://localhost/api/shorturl/:shorturlid and updating the redirectCount in the json file", async () => {
     const response = await request(app).get(`/api/shorturl/fr3qc`);
 
-    let data = fs.readFileSync(`./test.json`);
+    let data = fs.readFileSync(`../test.json`);
     data = JSON.parse(data);
 
     // Is the status code 302
