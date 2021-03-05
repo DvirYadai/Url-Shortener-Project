@@ -1,5 +1,9 @@
 const fs = require("fs");
 const axios = require("axios").default;
+const {
+  isShortenedUrlInFormat,
+  isUrlValid,
+} = require("../net-utils/url-validation");
 
 let address;
 if (process.env.NODE_ENV === "test") {
@@ -24,7 +28,6 @@ class DataBase {
         url: `https://api.jsonbin.io/v3/b/${address}/latest`,
       }).then((res) => {
         this.urlsObj = res.data.record;
-        console.log(res.data.record);
         fs.writeFile(
           `./urls.json`,
           JSON.stringify(this.urlsObj, null, 4),
@@ -46,7 +49,7 @@ class DataBase {
     }
   }
 
-  async MakeNewShortenedUrl(url) {
+  async MakeNewShortenedUrl(url, customShortUrl) {
     const isExistUrl = this.urlsObj.urlsArr.filter(
       (obj) => obj.originalUrl === url
     );
@@ -57,7 +60,11 @@ class DataBase {
     newUrlObject.creationDate = dateToSqlFormat();
     newUrlObject.redirectCount = 0;
     newUrlObject.originalUrl = url;
-    newUrlObject["shorturl-id"] = shortUrlGenerator();
+    try {
+      newUrlObject["shorturl-id"] = shortUrlGenerator(customShortUrl);
+    } catch (error) {
+      throw error;
+    }
     this.urlsObj.urlsArr.push(newUrlObject);
     try {
       axios.put(`https://api.jsonbin.io/v3/b/${address}`, this.urlsObj);
@@ -118,7 +125,7 @@ function dateToSqlFormat() {
   return timeCreation;
 }
 
-function shortUrlGenerator() {
+function shortUrlGenerator(customShortUrl) {
   const charArr = [
     "a",
     "b",
@@ -156,14 +163,40 @@ function shortUrlGenerator() {
     "8",
     "9",
   ];
+  if (customShortUrl) {
+    try {
+      isShortenedUrlInFormat(customShortUrl);
+    } catch (error) {
+      throw error;
+    }
+    const customShortUrlCheck = dataBase.urlsObj.urlsArr.filter(
+      (obj) => obj["shorturl-id"] === customShortUrl
+    );
+    console.log(customShortUrlCheck);
+    if (customShortUrlCheck.length > 0) {
+      throw "Short url is already in use!";
+    } else return customShortUrl;
+  }
   let string = "";
   for (let i = 0; i < 5; i++) {
     string += charArr[Math.floor(Math.random() * 35)];
   }
+  let stringCheck = dataBase.urlsObj.urlsArr.filter((obj) => {
+    obj["shorturl-id"] === string;
+  });
+  while (stringCheck.length > 0) {
+    string = "";
+    for (let i = 0; i < 5; i++) {
+      string += charArr[Math.floor(Math.random() * 35)];
+    }
+    stringCheck = dataBase.urlsObj.urlsArr.filter((obj) => {
+      obj["shorturl-id"] === string;
+    });
+  }
   return string;
 }
 
-// the methods below is only for tests!
+// the function below is only for tests!
 function initializeUrlsJsonFile() {
   dataBase.urlsObj = {
     urlsArr: [
