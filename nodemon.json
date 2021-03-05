@@ -1,6 +1,7 @@
 {
   "restartable": "rs",
   "ignore": [
+      "/urls.json",
       ".git",
       "node_modules/**/node_modules"
   ],
