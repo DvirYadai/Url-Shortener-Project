@@ -80,7 +80,7 @@ describe("POST Route", () => {
 
 describe("GET Routes to http://localhost/api/shorturl/:shorturlid", () => {
   const invalidShortenedUrlFormatError = "Invalid shortened url format!";
-  const doesNotExistShortenedUrlError = "There is no such shortened url!";
+  const doesNotExistShortenedUrlError = "There is no such short url!";
 
   it("Should redirect to original url when entering http://localhost/api/shorturl/:shorturlid and updating the redirectCount in the json file", async () => {
     const response = await request(app).get(`/api/shorturl/fr3qc`);
@@ -126,7 +126,7 @@ describe("GET Routes to http://localhost/api/statistic/:shorturlid", () => {
   };
 
   const invalidShortenedUrlFormatError = "Invalid shortened url format!";
-  const doesNotExistShortenedUrlError = "There is no such shortened url!";
+  const doesNotExistShortenedUrlError = "There is no such short url!";
 
   it("Should return existing shortened url object when writing existing shortened url in the statistic route", async () => {
     const response = await request(app).get(`/api/statistic/fr3qc`);

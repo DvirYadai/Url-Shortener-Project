@@ -91,7 +91,7 @@ class DataBase {
     );
     if (isExistUrl.length > 0) {
       return isExistUrl[0];
-    } else throw `There is no such shortened url!`;
+    } else throw `There is no such short url!`;
   }
 
   updateUrlredirectCount(shortenedUrl) {
@@ -172,7 +172,6 @@ function shortUrlGenerator(customShortUrl) {
     const customShortUrlCheck = dataBase.urlsObj.urlsArr.filter(
       (obj) => obj["shorturl-id"] === customShortUrl
     );
-    console.log(customShortUrlCheck);
     if (customShortUrlCheck.length > 0) {
       throw "Short url is already in use!";
     } else return customShortUrl;
