@@ -12,6 +12,7 @@ const CustomShortUrlValue = document.getElementById(
   "shortened_url_input_option"
 );
 
+// Event listener for the Shorten Url button.
 document
   .getElementById("url-submit-button")
   .addEventListener("click", async (e) => {
@@ -29,6 +30,7 @@ document
     await postNewUrl(inputValue, inputCustomShortUrlValue);
   });
 
+// Event listener for the Get Info button.
 document
   .getElementById("shortened-submit-button")
   .addEventListener("click", async (e) => {
@@ -43,15 +45,18 @@ document
     await GetSpecificUrlStatistic(inputValue);
   });
 
+// Function that triggered when user click on the short-url-format paragraph.
 function showInput() {
   CustomShortUrlValue.hidden = false;
   document.getElementById("short-url-format").hidden = false;
 }
 
+// Function that triggered when user exit the statistic div.
 function hideStatistic() {
   statisticDiv.hidden = true;
 }
 
+// Function that get url and custom short url(optional), and make request to the server.
 async function postNewUrl(url, inputCustomShortUrlValue) {
   try {
     const res = await axios({
@@ -105,6 +110,7 @@ async function postNewUrl(url, inputCustomShortUrlValue) {
   }
 }
 
+// Function that get short url, and make request to the server.
 async function GetSpecificUrlStatistic(url) {
   try {
     const res = await axios({
