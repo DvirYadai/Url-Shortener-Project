@@ -49,6 +49,7 @@ class DataBase {
     }
   }
 
+  // Method that make new short url
   async MakeNewShortenedUrl(url, customShortUrl) {
     const isExistUrl = this.urlsObj.urlsArr.filter(
       (obj) => obj.originalUrl === url
@@ -81,10 +82,12 @@ class DataBase {
     return newUrlObject;
   }
 
+  // Method that return all shortened urls objects
   GetAllUrls() {
     return this.urlsObj;
   }
 
+  // Method that return specific shortened url object.
   GetSpecificUrl(shortenedUrl) {
     const isExistUrl = this.urlsObj.urlsArr.filter(
       (obj) => obj["shorturl-id"] === shortenedUrl
@@ -94,6 +97,7 @@ class DataBase {
     } else throw `There is no such short url!`;
   }
 
+  // Method that update the redirect count every time user enter a website throw shortened url.
   updateUrlredirectCount(shortenedUrl) {
     const index = this.urlsObj.urlsArr.findIndex(
       (obj) => obj["shorturl-id"] === shortenedUrl
@@ -116,6 +120,7 @@ class DataBase {
 
 const dataBase = new DataBase();
 
+// Function that turn date to SQL format.
 function dateToSqlFormat() {
   let timeCreation = new Date();
   timeCreation =
@@ -125,6 +130,7 @@ function dateToSqlFormat() {
   return timeCreation;
 }
 
+// Function that generate new short url.
 function shortUrlGenerator(customShortUrl) {
   const charArr = [
     "a",
