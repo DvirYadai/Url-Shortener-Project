@@ -8,6 +8,9 @@ const creationTimeP = document.getElementById("creation-time");
 const originalUrlP = document.getElementById("original-url");
 const redirectCountP = document.getElementById("redirect-count");
 const shorturlIdP = document.getElementById("shorturl-id");
+const CustomShortUrlValue = document.getElementById(
+  "shortened_url_input_option"
+);
 
 document
   .getElementById("url-submit-button")
@@ -19,9 +22,7 @@ document
       errorUrl.innerText = "You must enter url!";
       return;
     }
-    let inputCustomShortUrlValue = document.getElementById(
-      "shortened_url_input_option"
-    ).value;
+    let inputCustomShortUrlValue = CustomShortUrlValue.value;
     newShortUrlP.hidden = true;
     errorUrl.hidden = true;
     errorNewShortUrl.hidden = true;
@@ -43,7 +44,8 @@ document
   });
 
 function showInput() {
-  document.getElementById("shortened_url_input_option").hidden = false;
+  CustomShortUrlValue.hidden = false;
+  document.getElementById("short-url-format").hidden = false;
 }
 
 function hideStatistic() {
@@ -60,8 +62,9 @@ async function postNewUrl(url, inputCustomShortUrlValue) {
         customShortUrl: inputCustomShortUrlValue,
       },
     });
-    document.getElementById("shortened_url_input_option").value = "";
-    document.getElementById("shortened_url_input_option").hidden = true;
+    CustomShortUrlValue.value = "";
+    CustomShortUrlValue.hidden = true;
+    document.getElementById("short-url-format").hidden = true;
     if (res.data.length) {
       newShortUrlP.hidden = false;
       shortUrlAnchor.innerText = `http://localhost:3000/api/shorturl/${res.data[0]["shorturl-id"]}`;
