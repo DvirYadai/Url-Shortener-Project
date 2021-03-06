@@ -92,7 +92,7 @@ describe("GET Routes to http://localhost/api/shorturl/:shorturlid", () => {
     expect(response.status).toBe(302);
 
     // Is the body equal to google address
-    expect(response.header.location).toEqual("https://www.google.com");
+    expect(response.redirect).toBeTruthy;
     expect(data.urlsArr[0].redirectCount).toEqual(3);
   });
 
