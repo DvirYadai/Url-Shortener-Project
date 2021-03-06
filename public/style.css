@@ -6,7 +6,6 @@
 
 body {
   font-family: "Montserrat", sans-serif;
-  font-size: 16px;
   color: black;
   height: 100vh;
   display: flex;
@@ -54,13 +53,9 @@ main {
 }
 
 form {
-  margin: 10px auto;
-  padding: 20px;
-  max-width: 600px;
-}
-
-label {
-  margin-right: 10px;
+  margin: 0.6rem auto;
+  padding: 1.25rem 1.25rem 1.25rem 0;
+  width: 37.5rem;
 }
 
 input[type="submit"] {
@@ -96,6 +91,7 @@ input[type="text"] {
 }
 
 #new-short-url {
+  width: 33rem;
   margin: 1rem;
   padding: 0.5rem 0;
   background-color: lightgray;
@@ -258,4 +254,16 @@ small {
   margin-top: 1.5rem;
   font-size: 0.9rem;
   display: block;
+}
+
+@media (max-width: 420px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+    font-size: 12px;
+  }
+  main {
+    width: 100vw;
+  }
 }
