@@ -2,32 +2,68 @@
 
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>URL Shortener</title>
     <link rel="icon" type="image/png" href="../public/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://kit.fontawesome.com/16662469fc.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="./public/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
 
   <body>
-    <h1>URL Shortener Microservice</h1>
+    <header>
+      <h1>URL Shortener Service</h1>
+      <h2>Here you have full control over your links</h2>
+    </header>
     <main>
-      <section>
-        <form action="api/shorturl/new" method="POST">
-          <fieldset>
-            <legend>URL Shortener</legend>
-            <label for="url_input">URL:</label>
+        <div id="statistic" hidden = "true">
+          <i class="fas fa-times" onclick="hideStatistic()"></i>
+          <p id="creation-time"></p>
+          <p id="original-url"></p>
+          <p id="redirect-count"></p>
+          <p id="shorturl-id"></p>
+        </div>
+        <form id="form">
             <input
               id="url_input"
               type="text"
               name="url"
-              placeholder="https://www.freecodecamp.org/"
+              placeholder="Enter your url"
             />
-            <input type="submit" value="POST URL" />
-          </fieldset>
+            <input id="url-submit-button" type="submit" value="Shorten URL"/>
+            <p id="new-short-url" hidden = "true">Your Short Url: <a id="short-url-anchor" href=""></a></p>
+            <div id="error-url" hidden = "true"></div>
+            <p id="custom-url" onclick="showInput()">Click here for custom short URL</p>
+            <input
+              id="shortened_url_input_option"
+              type="text"
+              name="short-url-option"
+              placeholder="Enter your custom short url"
+              hidden = "true"
+            />
+            <p style="color: red" id="short-url-format" hidden = "true">Only digits and numbers, must be 5 characters</p>
+            <div id="error-new-shortened-url" hidden = "true"></div>
+            <p id="first-p">Do you wish to know more about your shortened url?</p>
+            <p>Enter it below and enjoy</p>
+            <br>
+            <input
+              id="shortened_url_input"
+              type="text"
+              name="url"
+              placeholder="Enter your shortened url"
+            />
+            <input id="shortened-submit-button" type="submit" value="Get Info" />
+            <div id="error-shortened-url" hidden = "true"></div>
         </form>
-      </section>
     </main>
     <footer>
-      <p>By <a href="https://www.freecodecamp.org/">freeCodeCamp</a></p>
+      <a href="https://github.com/DvirYadai?tab=overview&from=2021-01-01&to=2021-01-13" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/YadaiDvir" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.facebook.com/dvir.yadai.3" target="_blank"><i class="fab fa-facebook"></i></a>
+      <small>Dvir Yadai © 2021</small>
     </footer>
+    <script src="../public/main.js"></script>
   </body>
 </html>

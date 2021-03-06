@@ -1,0 +1,34 @@
+{
+    "urlsArr": [
+        {
+            "creationDate": "2021-03-05 14:38:08",
+            "redirectCount": 2,
+            "originalUrl": "https://www.google.com",
+            "shorturl-id": "mqgde"
+        },
+        {
+            "creationDate": "2021-03-06 14:58:55",
+            "redirectCount": 0,
+            "originalUrl": "https://www.fxp.co.il",
+            "shorturl-id": "nzwho"
+        },
+        {
+            "creationDate": "2021-03-06 15:07:57",
+            "redirectCount": 1,
+            "originalUrl": "https://www.freecodecamp.org",
+            "shorturl-id": "85kw4"
+        },
+        {
+            "creationDate": "2021-03-06 15:11:09",
+            "redirectCount": 1,
+            "originalUrl": "https://www.youtube.co.il",
+            "shorturl-id": "youtu"
+        },
+        {
+            "creationDate": "2021-03-06 16:37:11",
+            "redirectCount": 1,
+            "originalUrl": "https://www.digitalwhisper.co.il/issue1",
+            "shorturl-id": "asdad"
+        }
+    ]
+}
